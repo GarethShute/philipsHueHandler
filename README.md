@@ -30,8 +30,11 @@ You will then have to physically press the button on your HueHub to accept the r
 You've now created an authorised *username*, which we'll use as the hue-application-key from now on. Place in the config file for the *appKey* value as descibed in the json config section below.
 ### /huelights/changecolour (POST) 
 JSON body format:  
-(X and Y values from CIE chromacity diagram)  
-(mirek value from ~155 - 500 depending on warmth of light. Lower is cooler)  
+(X and Y values from CIE chromacity diagram, see below)  
+(mirek value from ~155 - 500 depending on warmth of light. Lower is cooler, see black curve in diagram)
+
+![CIE chromacity](https://developers.meethue.com/wp-content/uploads/2018/02/color.png)
+
 Note: use mirek for white and xy for colour.  
 ```
 {  
