@@ -25,8 +25,6 @@ func main() {
 	http.HandleFunc("/huelights/changecolour", callHueBridge)
 	http.HandleFunc("/huelights/code", requestClientKey)
 
-	fmt.Println("Philips Hue Handler running, waiting for request...")
-
 	if hueConfigData.Port != "" {
 		fmt.Println("HUE Server listening on http://localhost:" + hueConfigData.Port)
 		err := http.ListenAndServe("0.0.0.0:"+hueConfigData.Port, nil)
@@ -40,6 +38,7 @@ func main() {
 			errorLogger.Fatal("Could not start Philips Hue Handler server: ", err)
 		}
 	}
+	fmt.Println("Philips Hue Handler running, waiting for request...")
 }
 
 func configureLogging() {
@@ -72,8 +71,8 @@ func loadConfig() {
 
 func callHueBridge(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		infoLogger.Println("Method not allowed: ", r.Method)
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
 
@@ -134,8 +133,8 @@ func callHueBridge(w http.ResponseWriter, r *http.Request) {
 	req.Header.Set("hue-application-key", hueConfigData.Hue_app_key)
 	resp, err := sendHubRequest(req)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
 		errorLogger.Println("Error sending request:", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
